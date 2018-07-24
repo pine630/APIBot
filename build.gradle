@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 buildscript {
 	ext {
 		springBootVersion = '2.0.3.RELEASE'
@@ -64,3 +65,33 @@ dependencies {
     /* Webドライバ */
     testCompile "org.seleniumhq.selenium:selenium-chrome-driver:2.48.2"
 }
+=======
+buildscript {
+	ext {
+		springBootVersion = '2.0.3.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+//config(name)を定義する
+def config(name) {
+    // config/gradle 配下の${name}.gradleファイルを読み込む
+    return "$rootDir/config/gradle/${name}.gradle"
+}
+
+// config/gradle 配下のbase.gradleファイルを読み込む
+apply from: config('base')
+apply from: config('rdbCommon')
+
+group = 'com.apibot'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+>>>>>>> 8950bafab63275f7bcf8e911be446f94739103ce
