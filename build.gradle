@@ -9,11 +9,15 @@ buildscript {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 	}
 }
+//config(name)を定義する
+def config(name) {
+    // config/gradle 配下の${name}.gradleファイルを読み込む
+    return "$rootDir/config/gradle/${name}.gradle"
+}
 
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
+// config/gradle 配下のbase.gradleファイルを読み込む
+apply from: config('base')
+apply from: config('rdbCommon')
 
 group = 'com.apibot'
 version = '0.0.1-SNAPSHOT'
@@ -21,13 +25,4 @@ sourceCompatibility = 1.8
 
 repositories {
 	mavenCentral()
-}
-
-
-dependencies {
-	compile('org.springframework.boot:spring-boot-starter-jersey')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
-	compile('org.springframework.boot:spring-boot-starter-security')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
