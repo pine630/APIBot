@@ -2,7 +2,7 @@
  * Copyright (c) 2017 Komatsu Ltd. All rights reserved.
  */
 
-package src.main.java.com.apibot;
+package com.apibot;
 
 import org.seasar.doma.Dao;
 import org.seasar.doma.Select;
