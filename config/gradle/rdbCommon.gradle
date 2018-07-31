@@ -2,6 +2,12 @@
 
 project.ext.useSpringBoot = true
 
+repositories {
+	mavenCentral()
+	jcenter()
+}
+
+
 if (useSpringBoot) {
     println "$name <- RDB (Common) with SpringBoot"
     dependencies {
@@ -9,7 +15,7 @@ if (useSpringBoot) {
         compile(group: "org.springframework.boot", name: "spring-boot-starter-jdbc")
 
         // https://mvnrepository.com/artifact/org.seasar.doma.boot/doma-spring-boot-starter
-        compile(group: "org.seasar.doma.boot", name: "doma-spring-boot-starter")
+        compile group: 'org.seasar.doma.boot', name: 'doma-spring-boot-starter', version: '1.1.1'
     }
 } else {
     println "$name <- RDB (Common) without SpringBoot"

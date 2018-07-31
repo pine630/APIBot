@@ -1,19 +1,7 @@
 spring:
-        profiles:
-                active: dev
----
-spring:
-        profiles: dev
-        datasource:
-                driverClassName: org.h2.Driver
-                url: jdbc:h2:file:/Dev/tmp/h2db/boot
-                username: sa
-                password:
----
-spring:
-        profiles: test
-        datasource:
-                driverClassName: org.h2.Driver
-                url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-                username: sa
-                password:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/apibot
+    driver-class-name: org.postgresql.Driver
+    username: apibot
+    password: apibot
+    platform: postgresql

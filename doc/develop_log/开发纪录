@@ -1,0 +1,14 @@
+===数据库准备====================================================================
+1.本地数据库安装
+2.建表
+C:\Program Files\PostgreSQL\10\bin
+#postgres login
+psql -U postgres
+#create user/password
+CREATE ROLE apibot WITH LOGIN PASSWORD 'apibot';
+#create database
+CREATE DATABASE apibot WITH OWNER = apibot;
+#apibot login
+create m_customer
+===数据库连接====================================================================
+1.Gradle文件准备

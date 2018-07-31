@@ -27,8 +27,17 @@ sourceCompatibility = 1.8
 
 repositories {
 	mavenCentral()
+	jcenter()
 }
 
+
+// 設定ファイルのパス名を返すユーティリティ
+def config(name) {
+    return "$rootDir/config/gradle/${name}.gradle"
+}
+
+apply from: config('rdbCommon')
+apply from: config('rdbPostgresql')
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-jersey')

@@ -7,11 +7,82 @@ apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
-dependencies {
-	compile('org.springframework.boot:spring-boot-starter-jersey')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
-	compile('org.springframework.boot:spring-boot-starter-security')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-starter-parent:${springBootVersion}"
+        mavenBom "org.apache.logging.log4j:log4j-bom:${log4jVersion}"
+    }
+    dependencies {
+        // ビルド用
+        dependency "com.fasterxml.jackson.core:jackson-annotations:${jacksonAnnotationsVersion}"
+        dependency "com.google.code.kaptcha:kaptcha:${kaptchaVersion}"
+        dependency "com.google.guava:guava:${guavaVersion}"
+        dependency "com.google.maps:google-maps-services:${googleMapsServicesVersion}"
+        dependency "com.microsoft.azure:azure-storage:${azureStorageVersion}"
+        dependency "com.microsoft.sqlserver:mssql-jdbc:${mssqlJdbcVersion}"
+        dependency "com.orangesignal:orangesignal-csv:${orangesignalCsvVersion}"
+        dependency "com.sendgrid:sendgrid-java:${sendgridJavaVersion}"
+        dependency "com.sendgrid:smtpapi-java:${smtpapiJavaVersion}"
+        dependency "commons-discovery:commons-discovery:${commonsDiscoveryVersion}"
+        dependency "commons-io:commons-io:${commonsIoVersion}"
+        dependency "de.grundid.opendatalab:geojson-jackson:${geojsonJacksonVersion}"
+        dependency "javax.mail:mail:${javaxMailVersion}"
+        dependency "javax.servlet.jsp:javax.servlet.jsp-api:${jspApiVersion}"
+        dependency "log4j:log4j:${log4j12Version}"
+        dependency "ma.glasnost.orika:orika-core:${orikaVersion}"
+        dependency "net.arnx:jsonic:${jsonicVersion}"
+        dependency "net.postgis:postgis-jdbc:${postgisVersion}"
+        dependency "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:${thymeleafLayoutDialectVersion}"
+        dependency "org.apache.axis:axis-jaxrpc:${axisVersion}"
+        dependency "org.apache.axis:axis:${axisVersion}"
+        dependency "org.apache.commons:commons-lang3:${commonsLang3Version}"
+        dependency "org.apache.hadoop:hadoop-common:${hadoopCommonVersion}"
+        dependency "org.apache.hadoop:hadoop-distcp:${hadoopCommonVersion}"
+        dependency "org.apache.hadoop:hadoop-hdfs:${hadoopCommonVersion}"
+        dependency "org.apache.hadoop:hadoop-mapreduce-client-core:${hadoopCommonVersion}"
+        dependency "org.apache.hadoop:hadoop-mapreduce-client-jobclient:${hadoopCommonVersion}"
+        dependency "org.apache.hadoop:hadoop-mapreduce-client-shuffle:${hadoopCommonVersion}"
+        dependency "org.apache.hadoop:hadoop-streaming:${hadoopCommonVersion}"
+        dependency "org.apache.hadoop:hadoop-yarn-common:${hadoopCommonVersion}"
+        dependency "org.apache.hadoop:hadoop-yarn-server-common:${hadoopCommonVersion}"
+        dependency "org.apache.hadoop:hadoop-yarn-server-manager:${hadoopCommonVersion}"
+        dependency "org.apache.hbase:hbase-client:${hbaseClientVersion}"
+        dependency "org.apache.hive:hive-jdbc:${hiveVersion}"
+        dependency "org.apache.hive:hive-service:${hiveVersion}"
+        dependency "org.apache.kafka:kafka-clients:${kafkaVersion}"
+        dependency "org.apache.kafka:kafka_${sparkScalaVersion}:${kafkaVersion}"
+        dependency "org.apache.poi:poi-ooxml:${poiVersion}"
+        dependency "org.apache.poi:poi:${poiVersion}"
+        dependency "org.apache.spark:spark-streaming-kafka-${sparkKafkaVersion}-assembly_${sparkScalaVersion}:${sparkVersion}"
+        dependency "org.apache.spark:spark-streaming_${sparkScalaVersion}:${sparkVersion}"
+        dependency "org.apache.taglibs:taglibs-standard-compat:${taglibsStandardVersion}"
+        dependency "org.apache.taglibs:taglibs-standard-impl:${taglibsStandardVersion}"
+        dependency "org.apache.taglibs:taglibs-standard-jstlel:${taglibsStandardVersion}"
+        dependency "org.apache.taglibs:taglibs-standard-spec:${taglibsStandardVersion}"
+        dependency "org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:${log4jdbcVersion}"
+        dependency "org.hibernate:hibernate-validator:${hibernateValidatorVersion}"
+        dependency "org.msgpack:msgpack:${msgpackVersion}"
+        dependency "org.postgresql:postgresql:${postgresqlVersion}"
+        dependency "org.projectlombok:lombok:${lombokVersion}"
+        dependency "org.rundeck:rundeck-api-java-client:${rundeckVersion}"
+        dependency "org.seasar.doma.boot:doma-spring-boot-starter:${domaBootVersion}"
+        dependency "org.seasar.doma:doma:${domaVersion}"
+        dependency "org.springframework.data:spring-data-hadoop:${springDataHadoopVersion}"
+        dependency "org.springframework.security.oauth:spring-security-oauth2:${springSecurityOauth2Version}"
+        dependency "org.thymeleaf.extras:thymeleaf-extras-springsecurity4:${thymeleafExtrasSpringsecurity4Version}"
+        dependency "org.thymeleaf:thymeleaf-spring4:${thymeleafVersion}"
+        dependency "org.thymeleaf:thymeleaf:${thymeleafVersion}"
+        // ※ライブラリを追加する場合は、末尾ではなくソートした位置に挿入してください
+
+        // テスト用
+        dependency "org.dbunit:dbunit:${dbunitVersion}"
+        dependency "org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-grizzly2:${dependencyManagement.importedProperties['jersey.version']}"
+        dependency "org.glassfish.jersey.test-framework:jersey-test-framework-core:${dependencyManagement.importedProperties['jersey.version']}"
+        dependency "org.powermock:powermock-api-mockito:${powermockVersion}"
+        dependency "org.powermock:powermock-module-junit4:${powermockVersion}"
+        dependency "org.springframework.security:spring-security-test:${springSecurityTestVersion}"
+        dependency "org.springframework.test.htmlunit:spring-test-htmlunit:${springTestHtmlunitVersion}"
+        // ※ライブラリを追加する場合は、末尾ではなくソートした位置に挿入してください
+    }
 }
 
