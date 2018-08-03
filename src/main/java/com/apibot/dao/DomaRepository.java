@@ -1,4 +1,4 @@
-package com.apibot.datasource;
+package com.apibot.dao;
 
 import org.seasar.doma.AnnotateWith;
 import org.seasar.doma.Annotation;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @AnnotateWith(annotations = {
     @Annotation(target = AnnotationTarget.CLASS, type = Component.class),
-    @Annotation(target = AnnotationTarget.CONSTRUCTOR, type= Autowired.class)
+    @Annotation(target = AnnotationTarget.CONSTRUCTOR, type = Autowired.class)
 })
 public @interface DomaRepository {
 }

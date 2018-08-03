@@ -1,8 +1,0 @@
-spring:
-  datasource:
-
-    url: jdbc:postgresql://localhost:5432/komtrax_db_201801_api_base
-    driver-class-name: org.postgresql.Driver
-    username: komtrax
-    password: komtrax0808
-    platform: postgresql

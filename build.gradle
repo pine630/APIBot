@@ -4,72 +4,88 @@ buildscript {
 	}
 	repositories {
 		mavenCentral()
+		jcenter()
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 	}
 }
 
+//增加compile等task
 apply plugin: 'java'
+//把java的路径，写到eclipse的.project文件里
 apply plugin: 'eclipse'
-apply plugin: 'groovy'
+//spring最基本的插件
 apply plugin: 'org.springframework.boot'
+//
 apply plugin: 'io.spring.dependency-management'
 
+sourceCompatibility = 1.8
 jar {
-    baseName = 'domaboot'
-    version =  '0.1.0'
+    baseName = 'apibot'
+    version =  '0.0.1-SNAPSHOT'
 }
 
-group = 'com.apibot'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 1.8
+// 設定ファイルのパス名を返すユーティリティ
+//def config(name) {
+//    return "$rootDir/config/gradle/${name}.gradle"
+//}
+
+//apply from: config('rdbCommon')
+
+defaultTasks 'clean', 'build'
 
 repositories {
 	mavenCentral()
 	jcenter()
 }
 
+// Doma-Genで出力するJavaクラスとSQLファイルの出力先ディレクトリを同じにする
+processResources.destinationDir = compileJava.destinationDir
+processTestResources.destinationDir = compileTestJava.destinationDir
 
-// 設定ファイルのパス名を返すユーティリティ
-def config(name) {
-    return "$rootDir/config/gradle/${name}.gradle"
+// Doma-Genでコンパイルより前にSQLファイルを出力先ディレクトリにコピーする
+// ために依存関係を逆転する
+compileJava.dependsOn processResources
+compileTestJava.dependsOn processTestResources
+
+configurations {
+    domaGenRuntime
 }
 
-apply from: config('rdbCommon')
-apply from: config('rdbPostgresql')
-
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-jersey')
+
+	compile('org.springframework.boot:spring-boot-starter')
+	// 增加了画面显示，整个功能需要再细查
 	compile('org.springframework.boot:spring-boot-starter-web')
+
+	compile('org.springframework.boot:spring-boot-starter-jersey')
+
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.springframework.boot:spring-boot-starter-security')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
     compile("org.springframework.boot:spring-boot-starter-jetty")
     compile("org.springframework.boot:spring-boot-starter-actuator")
+
     compile("org.projectlombok:lombok:1.16.16")
 
+    compile("org.seasar.doma:doma:${domaVersion}")
+
     /* DBアクセス関連 */
-    compile("org.springframework:spring-jdbc")
-    compile("org.seasar.doma:doma:2.5.0")
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-jdbc
+    compile("org.springframework.boot:spring-boot-starter-jdbc")
+    // https://mvnrepository.com/artifact/org.seasar.doma.boot/doma-spring-boot-starter
+    compile("org.seasar.doma.boot:doma-spring-boot-starter:${domaBootVersion}")
 
-    /* ログの設定 */
-    compile("org.lazyluke:log4jdbc-remix:0.2.7") {
-        exclude module: 'junit'
-    }
+    compile("org.lazyluke:log4jdbc-remix:0.2.7")
+    runtime(group: "org.postgresql", name: "postgresql")
 
-    /* Rest APIのテスト用 */
-    testCompile("com.jayway.restassured:rest-assured:2.3.3")
 
-    /* SpockFramework(GroovyのBDDテストフレームワーク) */
-    testCompile("org.spockframework:spock-core:0.7-groovy-2.0")
-
-    /* Geb(ブラウザテスト用フレームワーク) */
-    testCompile "org.gebish:geb-spock:0.10.0"
-
-    /* Selenide(Java製Seleniumラッパー) */
-    testCompile 'com.codeborne:selenide:2.23'
-
-    /* Webドライバ */
-    testCompile "org.seleniumhq.selenium:selenium-chrome-driver:2.48.2"
+    // https://mvnrepository.com/artifact/org.bgee.log4jdbc-log4j2/log4jdbc-log4j2-jdbc4.1
+    compile(group: "org.bgee.log4jdbc-log4j2", name: "log4jdbc-log4j2-jdbc4.1",version:"1.16")
+        // Doma-Gen本体
+    domaGenRuntime("org.seasar.doma:doma-gen:${domaVersion}")
+    // Doma-Gen接続用設定
+    domaGenRuntime("org.postgresql:postgresql")
 }
+

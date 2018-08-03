@@ -1,9 +1,0 @@
-// PostgreSQL 設定
-
-println "$name <- RDB (PostgreSQL)"
-
-// 依存関係設定
-dependencies {
-    runtime(group: "org.postgresql", name: "postgresql")
-    compile(group: "net.postgis", name: "postgis-jdbc")
-}

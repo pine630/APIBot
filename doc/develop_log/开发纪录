@@ -12,3 +12,18 @@ CREATE DATABASE apibot WITH OWNER = apibot;
 create m_customer
 ===数据库连接====================================================================
 1.Gradle文件准备
+如果不加apply plugin: 'io.spring.dependency-management'
+During the build, one or more dependencies that were declared without a version failed to resolve:
+    org.springframework.boot:spring-boot-starter-jetty:
+Did you forget to apply the io.spring.dependency-management plugin to the APIBot project?
+如果不加apply plugin: 'org.springframework.boot'
+Could not resolve all files for configuration ':compileClasspath'.
+> Cannot resolve external dependency org.springframework.boot:spring-boot-starter because no repositories are defined.
+  Required by:
+      project :
+
+===Spring=======================================================================
+1.ComponentScan
+启动的application类文件，如果不加componentscan,则会出错。
+但是加了即使是错误的路径，也不出错了。需要调查
+
